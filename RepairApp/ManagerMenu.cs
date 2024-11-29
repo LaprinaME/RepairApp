@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -11,20 +12,68 @@ namespace RepairApp
         private string connectionString = @"Data Source=DESKTOP-DFJ77GS;Initial Catalog=RepairBD;Integrated Security=True;MultipleActiveResultSets=True";
         private SqlDataAdapter adapter;
         private DataSet ds;
-        private string sql = "SELECT * FROM Comments"; // SQL-запрос для загрузки комментариев
+        private string sql = "SELECT * FROM Comments"; 
 
         public ManagerMenu()
         {
             InitializeComponent();
-            this.MaximizeBox = false; // Запрещаем максимизацию формы
+            this.Text = "Меню менеджера";
+            this.Size = new Size(800, 600);
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+            
+            dataGridView1.Font = new Font("Comic Sans MS", 12);
+            dataGridView1.BackgroundColor = Color.FromArgb(230, 230, 250);
+            dataGridView1.GridColor = Color.FromArgb(180, 180, 200);
+
+            
+            button1.Text = "Добавить комментарий";
+            button1.Size = new Size(150, 40);
+            button1.BackColor = Color.FromArgb(73, 140, 81);
+            button1.ForeColor = Color.White;
+            button1.Font = new Font("Comic Sans MS", 12);
+            button1.FlatStyle = FlatStyle.Flat;
+
+            
+            button2.Text = "Удалить комментарий";
+            button2.Size = new Size(150, 40);
+            button2.BackColor = Color.FromArgb(73, 140, 81);
+            button2.ForeColor = Color.White;
+            button2.Font = new Font("Comic Sans MS", 12);
+            button2.FlatStyle = FlatStyle.Flat;
+
+            
+            button3.Text = "Сохранить изменения";
+            button3.Size = new Size(150, 40); ;
+            button3.BackColor = Color.FromArgb(73, 140, 81);
+            button3.ForeColor = Color.White;
+            button3.Font = new Font("Comic Sans MS", 12);
+            button3.FlatStyle = FlatStyle.Flat;
+
+            
+            button4.Text = "Обновить комментарий";
+            button4.Size = new Size(150, 40); ;
+            button4.BackColor = Color.FromArgb(73, 140, 81);
+            button4.ForeColor = Color.White;
+            button4.Font = new Font("Comic Sans MS", 12);
+            button4.FlatStyle = FlatStyle.Flat;
+
+            
+
+            
+            dataGridView1.Dock = DockStyle.Fill;
+            this.Controls.Add(dataGridView1);
         }
+
 
         private async void ManagerMenu_Load(object sender, EventArgs e)
         {
-            await LoadDataAsync(); // Загрузка данных при запуске формы
+            await LoadDataAsync(); 
         }
 
-        // Асинхронный метод для загрузки данных из базы в DataGridView
+        
         private async Task LoadDataAsync()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -37,9 +86,12 @@ namespace RepairApp
             }
         }
 
-        // button1 — добавление нового комментария
         private async void button1_Click(object sender, EventArgs e)
         {
+            
+            string commentID = Prompt.ShowDialog("ID комментария:", "Добавление комментария");
+            if (string.IsNullOrEmpty(commentID)) return;
+
             string message = Prompt.ShowDialog("Сообщение комментария:", "Добавление комментария");
             if (string.IsNullOrEmpty(message)) return;
 
@@ -49,22 +101,25 @@ namespace RepairApp
             string requestID = Prompt.ShowDialog("ID заявки:", "Добавление комментария");
             if (string.IsNullOrEmpty(requestID)) return;
 
-            await AddCommentAsync(message, masterID, requestID);
-            await LoadDataAsync(); // Обновляем данные после добавления
+           
+            await AddCommentAsync(commentID, message, masterID, requestID);
+
+            
+            await LoadDataAsync();
         }
 
-        // Асинхронный метод для добавления нового комментария
-        private async Task AddCommentAsync(string message, string masterID, string requestID)
+        private async Task AddCommentAsync(string commentID, string message, string masterID, string requestID)
         {
             string insertSql = @"
-            INSERT INTO Comments (message, masterID, requestID) 
-            VALUES (@message, @masterID, @requestID)";
+    INSERT INTO Comments (commentID, message, masterID, requestID) 
+    VALUES (@commentID, @message, @masterID, @requestID)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
                 using (SqlCommand insertCommand = new SqlCommand(insertSql, connection))
                 {
+                    insertCommand.Parameters.AddWithValue("@commentID", commentID);
                     insertCommand.Parameters.AddWithValue("@message", message);
                     insertCommand.Parameters.AddWithValue("@masterID", masterID);
                     insertCommand.Parameters.AddWithValue("@requestID", requestID);
@@ -74,14 +129,16 @@ namespace RepairApp
             }
         }
 
-        // button2 — удаление выбранного комментария
+
+
+        
         private async void button2_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                int commentID = (int)dataGridView1.SelectedRows[0].Cells[0].Value; // ID комментария в первом столбце
+                int commentID = (int)dataGridView1.SelectedRows[0].Cells[0].Value; 
                 await DeleteCommentAsync(commentID);
-                await LoadDataAsync(); // Обновляем данные после удаления
+                await LoadDataAsync(); 
             }
             else
             {
@@ -89,7 +146,7 @@ namespace RepairApp
             }
         }
 
-        // Асинхронный метод для удаления комментария
+        
         private async Task DeleteCommentAsync(int commentID)
         {
             string deleteSql = "DELETE FROM Comments WHERE commentID = @commentID";
@@ -105,7 +162,7 @@ namespace RepairApp
             }
         }
 
-        // button3 — сохранение изменений в базе данных
+        
         private async void button3_Click(object sender, EventArgs e)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -118,12 +175,12 @@ namespace RepairApp
             MessageBox.Show("Изменения сохранены.");
         }
 
-        // button4 — обновление выбранного комментария
+        
         private async void button4_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                int commentID = (int)dataGridView1.SelectedRows[0].Cells[0].Value; // ID комментария в первом столбце
+                int commentID = (int)dataGridView1.SelectedRows[0].Cells[0].Value;
 
                 string message = Prompt.ShowDialog("Сообщение комментария:", "Обновление комментария");
                 if (string.IsNullOrEmpty(message)) return;
@@ -135,7 +192,7 @@ namespace RepairApp
                 if (string.IsNullOrEmpty(requestID)) return;
 
                 await UpdateCommentAsync(commentID, message, masterID, requestID);
-                await LoadDataAsync(); // Обновляем данные после изменения
+                await LoadDataAsync(); 
             }
             else
             {
@@ -143,7 +200,7 @@ namespace RepairApp
             }
         }
 
-        // Асинхронный метод для обновления комментария
+        
         private async Task UpdateCommentAsync(int commentID, string message, string masterID, string requestID)
         {
             string updateSql = @"
@@ -187,9 +244,9 @@ namespace RepairApp
             }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            // Код для обработки кликов по ячейкам DataGridView
+
         }
     }
 }

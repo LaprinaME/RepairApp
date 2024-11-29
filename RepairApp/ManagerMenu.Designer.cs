@@ -34,16 +34,16 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.repairBDDataSet = new RepairApp.RepairBDDataSet();
-            this.commentsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.commentsTableAdapter = new RepairApp.RepairBDDataSetTableAdapters.CommentsTableAdapter();
             this.commentIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.masterIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.requestIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.commentsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.repairBDDataSet = new RepairApp.RepairBDDataSet();
+            this.commentsTableAdapter = new RepairApp.RepairBDDataSetTableAdapters.CommentsTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repairBDDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.commentsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repairBDDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -102,20 +102,7 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(240, 150);
             this.dataGridView1.TabIndex = 4;
-            // 
-            // repairBDDataSet
-            // 
-            this.repairBDDataSet.DataSetName = "RepairBDDataSet";
-            this.repairBDDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // commentsBindingSource
-            // 
-            this.commentsBindingSource.DataMember = "Comments";
-            this.commentsBindingSource.DataSource = this.repairBDDataSet;
-            // 
-            // commentsTableAdapter
-            // 
-            this.commentsTableAdapter.ClearBeforeFill = true;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
             // 
             // commentIDDataGridViewTextBoxColumn
             // 
@@ -149,6 +136,20 @@
             this.requestIDDataGridViewTextBoxColumn.Name = "requestIDDataGridViewTextBoxColumn";
             this.requestIDDataGridViewTextBoxColumn.Width = 125;
             // 
+            // commentsBindingSource
+            // 
+            this.commentsBindingSource.DataMember = "Comments";
+            this.commentsBindingSource.DataSource = this.repairBDDataSet;
+            // 
+            // repairBDDataSet
+            // 
+            this.repairBDDataSet.DataSetName = "RepairBDDataSet";
+            this.repairBDDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // commentsTableAdapter
+            // 
+            this.commentsTableAdapter.ClearBeforeFill = true;
+            // 
             // ManagerMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -163,8 +164,8 @@
             this.Text = "ManagerMenu";
             this.Load += new System.EventHandler(this.ManagerMenu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repairBDDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.commentsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repairBDDataSet)).EndInit();
             this.ResumeLayout(false);
 
         }

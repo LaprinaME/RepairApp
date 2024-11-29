@@ -152,12 +152,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientMenu.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ClientMenu.Designer.cs">
-      <DependentUpon>ClientMenu.cs</DependentUpon>
-    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,15 +183,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RepairBDDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="RepairBDDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RepairBDDataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RepairBDDataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RepairBDDataSet2.xsd</DependentUpon>
+    </Compile>
     <Compile Include="WorkerMenu.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="WorkerMenu.Designer.cs">
       <DependentUpon>WorkerMenu.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ClientMenu.resx">
-      <DependentUpon>ClientMenu.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -242,6 +243,28 @@
     </None>
     <None Include="RepairBDDataSet.xss">
       <DependentUpon>RepairBDDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="RepairBDDataSet1.xsc">
+      <DependentUpon>RepairBDDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="RepairBDDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RepairBDDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="RepairBDDataSet1.xss">
+      <DependentUpon>RepairBDDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="RepairBDDataSet2.xsc">
+      <DependentUpon>RepairBDDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="RepairBDDataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RepairBDDataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="RepairBDDataSet2.xss">
+      <DependentUpon>RepairBDDataSet2.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

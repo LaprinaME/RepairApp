@@ -15,18 +15,28 @@ namespace RepairApp
         public Form1()
         {
             InitializeComponent();
+            this.Text = "Вход в систему";
+            this.Size = new Size(400, 250);
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
 
-            // Настраиваем кнопку авторизации
+            
+            this.BackColor = Color.White;
+            this.Font = new Font("Comic Sans MS", 12);
+
+            
             button1.Text = "Авторизация";
             button1.Location = new Point(50, 50);
             button1.Size = new Size(200, 40);
+            button1.BackColor = Color.FromArgb(73, 140, 81);
+            button1.ForeColor = Color.White;
             button1.Click += button1_Click;
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Открываем форму авторизации
+            
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
             loginForm.BringToFront();
@@ -36,7 +46,7 @@ namespace RepairApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // Центрируем кнопки
+            
             CenterButtons();
         }
 
