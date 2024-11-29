@@ -12,7 +12,7 @@ namespace RepairApp
         private string connectionString = @"Data Source=DESKTOP-DFJ77GS;Initial Catalog=RepairBD;Integrated Security=True;MultipleActiveResultSets=True";
         private SqlDataAdapter adapter;
         private DataSet ds;
-        private string sql = "SELECT * FROM Comments"; // SQL-запрос для загрузки комментариев
+        private string sql = "SELECT * FROM Comments"; 
 
         public WorkerMenu()
         {
@@ -23,40 +23,40 @@ namespace RepairApp
             this.MaximizeBox = false;
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            // Настроим DataGridView
+            
             dataGridView1.Font = new Font("Comic Sans MS", 12);
-            dataGridView1.BackgroundColor = Color.FromArgb(230, 230, 250);
+            dataGridView1.BackgroundColor = Color.FromArgb(189, 236, 182);
             dataGridView1.GridColor = Color.FromArgb(180, 180, 200);
 
-            // Настроим кнопку "Добавить комментарий"
+           
             button1.Text = "Добавить комментарий";
             button1.Size = new Size(150, 40);
             button1.BackColor = Color.FromArgb(73, 140, 81);
             button1.ForeColor = Color.White;
             button1.Font = new Font("Comic Sans MS", 12);
             button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(250, 200); // Устанавливаем начальное положение кнопки
+            button1.Location = new Point(250, 200); 
 
-            // Настроим кнопку "Удалить комментарий"
+            
             button2.Text = "Удалить комментарий";
             button2.Size = new Size(150, 40);
             button2.BackColor = Color.FromArgb(73, 140, 81);
             button2.ForeColor = Color.White;
             button2.Font = new Font("Comic Sans MS", 12);
             button2.FlatStyle = FlatStyle.Flat;
-            button2.Location = new Point(250, 250); // Располагаем кнопку ниже с отступом
+            button2.Location = new Point(250, 250);
 
 
-            // Добавляем элементы на форму
+            
             dataGridView1.Dock = DockStyle.Fill;
             this.Controls.Add(dataGridView1);
         }
 
         private async void WorkerMenu_Load(object sender, EventArgs e)
         {
-            // Заполнение данных в DataGridView с использованием асинхронной загрузки.
+            
             this.commentsTableAdapter.Fill(this.repairBDDataSet2.Comments);
-            await LoadDataAsync();  // Теперь это корректно вызывает асинхронный метод.
+            await LoadDataAsync();  
         }
 
         private async Task LoadDataAsync()
@@ -72,7 +72,7 @@ namespace RepairApp
         }
         private async void button1_Click(object sender, EventArgs e)
         {
-            // Запрашиваем данные в правильной последовательности и только один раз.
+            
             string commentID = Prompt.ShowDialog("ID комментария:", "Добавление комментария");
             if (string.IsNullOrEmpty(commentID)) return;
 
@@ -85,10 +85,10 @@ namespace RepairApp
             string requestID = Prompt.ShowDialog("ID заявки:", "Добавление комментария");
             if (string.IsNullOrEmpty(requestID)) return;
 
-            // Выполняем добавление в базу данных только после всех вводов
+            
             await AddCommentAsync(commentID, message, masterID, requestID);
 
-            // Обновляем данные только после успешного добавления
+            
             await LoadDataAsync();
         }
 
@@ -115,14 +115,14 @@ namespace RepairApp
 
 
 
-        // button2 — удаление выбранного комментария
+        
         private async void button2_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                int commentID = (int)dataGridView1.SelectedRows[0].Cells[0].Value; // ID комментария в первом столбце
+                int commentID = (int)dataGridView1.SelectedRows[0].Cells[0].Value; 
                 await DeleteCommentAsync(commentID);
-                await LoadDataAsync(); // Обновляем данные после удаления
+                await LoadDataAsync();
             }
             else
             {
@@ -130,7 +130,7 @@ namespace RepairApp
             }
         }
 
-        // Асинхронный метод для удаления комментария
+       
         private async Task DeleteCommentAsync(int commentID)
         {
             string deleteSql = "DELETE FROM Comments WHERE commentID = @commentID";

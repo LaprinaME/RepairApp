@@ -23,51 +23,54 @@ namespace RepairApp
             this.MaximizeBox = false;
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            // Настроим DataGridView
+            
             dataGridView1.Font = new Font("Comic Sans MS", 12);
-            dataGridView1.BackgroundColor = Color.FromArgb(230, 230, 250);
+            dataGridView1.BackgroundColor = Color.FromArgb(189, 236, 182);
             dataGridView1.GridColor = Color.FromArgb(180, 180, 200);
 
-            // Настраиваем кнопку "Добавить заявку"
-            button1.Text = "Добавить заявку";
+
+            button1.Text = "Добавить комментарий";
             button1.Size = new Size(150, 40);
             button1.BackColor = Color.FromArgb(73, 140, 81);
             button1.ForeColor = Color.White;
             button1.Font = new Font("Comic Sans MS", 12);
             button1.FlatStyle = FlatStyle.Flat;
+            button1.Location = new Point(250, 200);
 
-            // Настраиваем кнопку "Удалить заявку"
-            button2.Text = "Удалить заявку";
+            button2.Text = "Удалить комментарий";
             button2.Size = new Size(150, 40);
             button2.BackColor = Color.FromArgb(73, 140, 81);
             button2.ForeColor = Color.White;
             button2.Font = new Font("Comic Sans MS", 12);
             button2.FlatStyle = FlatStyle.Flat;
+            button2.Location = new Point(250, 250);
 
-            // Настраиваем кнопку "Сохранить изменения"
+
             button3.Text = "Сохранить изменения";
-            button3.Size = new Size(150, 40);
+            button3.Size = new Size(150, 40); ;
             button3.BackColor = Color.FromArgb(73, 140, 81);
             button3.ForeColor = Color.White;
             button3.Font = new Font("Comic Sans MS", 12);
             button3.FlatStyle = FlatStyle.Flat;
+            button3.Location = new Point(250, 300);
 
-            // Настраиваем кнопку "Обновить заявку"
-            button4.Text = "Обновить заявку";
-            button4.Size = new Size(150, 40);
+
+            button4.Text = "Обновить комментарий";
+            button4.Size = new Size(150, 40); ;
             button4.BackColor = Color.FromArgb(73, 140, 81);
             button4.ForeColor = Color.White;
             button4.Font = new Font("Comic Sans MS", 12);
             button4.FlatStyle = FlatStyle.Flat;
+            button4.Location = new Point(250, 350);
 
-            // Добавляем элементы на форму
+
             dataGridView1.Dock = DockStyle.Fill;
             this.Controls.Add(dataGridView1);
         }
 
         private async void OperatorMenu_Load(object sender, EventArgs e)
         {
-            // Загружаем данные асинхронно при загрузке формы
+            
             await LoadDataAsync();
         }
 
@@ -85,7 +88,7 @@ namespace RepairApp
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            // Запрашиваем данные в правильной последовательности и только один раз.
+           
             string requestID = Prompt.ShowDialog("ID заявки:", "Добавление заявки");
             if (string.IsNullOrEmpty(requestID)) return;
 
@@ -113,10 +116,10 @@ namespace RepairApp
             string clientID = Prompt.ShowDialog("ID клиента:", "Добавление заявки");
             if (string.IsNullOrEmpty(clientID)) return;
 
-            // Выполняем добавление в базу данных только после всех вводов
+            
             await AddRequestAsync(requestID, startDate, orgTechID, problemDescription, statusID, completionDate, partID, masterID, clientID);
 
-            // Обновляем данные только после успешного добавления
+            
             await LoadDataAsync();
         }
 
@@ -150,9 +153,9 @@ namespace RepairApp
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                int requestID = (int)dataGridView1.SelectedRows[0].Cells[0].Value; // ID заявки в первом столбце
+                int requestID = (int)dataGridView1.SelectedRows[0].Cells[0].Value; 
                 await DeleteRequestAsync(requestID);
-                await LoadDataAsync(); // Обновляем данные после удаления
+                await LoadDataAsync(); 
             }
             else
             {
@@ -191,7 +194,7 @@ namespace RepairApp
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                int requestID = (int)dataGridView1.SelectedRows[0].Cells[0].Value; // ID заявки в первом столбце
+                int requestID = (int)dataGridView1.SelectedRows[0].Cells[0].Value; 
 
                 string startDate = Prompt.ShowDialog("Дата начала:", "Обновление заявки");
                 if (string.IsNullOrEmpty(startDate)) return;
@@ -219,7 +222,7 @@ namespace RepairApp
 
                 await UpdateRequestAsync(requestID, startDate, orgTechID, problemDescription, statusID, completionDate, partID, masterID, clientID);
 
-                await LoadDataAsync(); // Обновляем данные после обновления заявки
+                await LoadDataAsync(); 
             }
             else
             {

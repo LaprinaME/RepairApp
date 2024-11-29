@@ -25,7 +25,7 @@ namespace RepairApp
 
             
             dataGridView1.Font = new Font("Comic Sans MS", 12);
-            dataGridView1.BackgroundColor = Color.FromArgb(230, 230, 250);
+            dataGridView1.BackgroundColor = Color.FromArgb(189, 236, 182);
             dataGridView1.GridColor = Color.FromArgb(180, 180, 200);
 
             
@@ -35,34 +35,38 @@ namespace RepairApp
             button1.ForeColor = Color.White;
             button1.Font = new Font("Comic Sans MS", 12);
             button1.FlatStyle = FlatStyle.Flat;
+            button1.Location = new Point(250, 200);
 
-            
+
             button2.Text = "Удалить комментарий";
             button2.Size = new Size(150, 40);
             button2.BackColor = Color.FromArgb(73, 140, 81);
             button2.ForeColor = Color.White;
             button2.Font = new Font("Comic Sans MS", 12);
             button2.FlatStyle = FlatStyle.Flat;
+            button2.Location = new Point(250, 250);
 
-            
+
             button3.Text = "Сохранить изменения";
             button3.Size = new Size(150, 40); ;
             button3.BackColor = Color.FromArgb(73, 140, 81);
             button3.ForeColor = Color.White;
             button3.Font = new Font("Comic Sans MS", 12);
             button3.FlatStyle = FlatStyle.Flat;
+            button3.Location = new Point(250, 300);
 
-            
+
             button4.Text = "Обновить комментарий";
             button4.Size = new Size(150, 40); ;
             button4.BackColor = Color.FromArgb(73, 140, 81);
             button4.ForeColor = Color.White;
             button4.Font = new Font("Comic Sans MS", 12);
             button4.FlatStyle = FlatStyle.Flat;
+            button4.Location = new Point(250, 350);
 
-            
 
-            
+
+
             dataGridView1.Dock = DockStyle.Fill;
             this.Controls.Add(dataGridView1);
         }
